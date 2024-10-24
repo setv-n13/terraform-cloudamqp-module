@@ -10,12 +10,6 @@ resource "cloudamqp_instance" "instance" {
 data "cloudamqp_instance" "instance_info" {
   instance_id = cloudamqp_instance.instance.id
 }
-## without this wait any cluster related resources creation may cause jamming
-resource "time_sleep" "wait_cloudamqp_instance" {
-  create_duration = "10s"
-  depends_on      = [cloudamqp_instance.instance]
-}
-
 
 ## rabbitmq config
 resource "cloudamqp_rabbitmq_configuration" "rabbitmq_config" {
